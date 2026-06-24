@@ -1,5 +1,6 @@
 package com.nonsyncbobbal.patientservice.service;
 
+import com.nonsyncbobbal.patientservice.dto.PatientRequestDTO;
 import com.nonsyncbobbal.patientservice.dto.PatientResponseDTO;
 import com.nonsyncbobbal.patientservice.mapper.PatientMapper;
 import com.nonsyncbobbal.patientservice.model.Patient;
@@ -17,14 +18,19 @@ public class PatientService {
 
     public List<PatientResponseDTO> getAllPatients() {
         List<Patient> Patients = patientRepository.findAll();
-        List<PatientResponseDTO> patientResponseDTOs = Patients.stream()
+
+        //        List<PatientResponseDTO> patientResponseDTOs = new ArrayList<>();
+        //        for(Patient p : Patients){
+        //            patientResponseDTOs.add(PatientMapper.toPatientResponseDTO(p));
+        //        }
+        return Patients.stream()
                 .map(PatientMapper::toPatientResponseDTO)
                 .toList();
-//        List<PatientResponseDTO> patientResponseDTOs = new ArrayList<>();
-//        for(Patient p : Patients){
-//            patientResponseDTOs.add(PatientMapper.toPatientResponseDTO(p));
-//        }
-        return patientResponseDTOs;
+    }
+    public PatientResponseDTO createPatient(PatientRequestDTO patientRequestDTO) {
+
+        Patient newPatient = patientRepository.save(PatientMapper.toPatient(patientRequestDTO));
+        return PatientMapper.toPatientResponseDTO(newPatient);
     }
 
 }
