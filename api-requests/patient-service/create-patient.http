@@ -1,0 +1,12 @@
+### POST request to create a patient in the patient service
+POST http://localhost:8089/patients
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "address": "123 Main St",
+  "email": "nonsyncbobbal@gmail.com",
+  "dateOfBirth": "1990-01-01",
+  "registeredDate": "2023-01-01"
+}
+###

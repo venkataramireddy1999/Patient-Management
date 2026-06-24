@@ -1,12 +1,12 @@
 package com.nonsyncbobbal.patientservice.controller;
 
+import com.nonsyncbobbal.patientservice.dto.PatientRequestDTO;
 import com.nonsyncbobbal.patientservice.dto.PatientResponseDTO;
 import com.nonsyncbobbal.patientservice.service.PatientService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,7 +18,13 @@ public class PatientController {
 
     @GetMapping
     public ResponseEntity<List<PatientResponseDTO>> getPatients() {
-        List<PatientResponseDTO> patients = patientService.getAllPatients();
-        return ResponseEntity.ok(patients);
+
+        return ResponseEntity.ok(patientService.getAllPatients());
+    }
+    @PostMapping
+    public ResponseEntity<PatientResponseDTO> createPatient(@Valid @RequestBody
+                                                                PatientRequestDTO patientRequestDTO) {
+            return ResponseEntity.ok(patientService.createPatient(patientRequestDTO));
+
     }
 }
